@@ -5,25 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        table {
-            width: 50%;
-            solid-color: black;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-    </style>
+    <title>[Thực hành] Lọc danh sách khách hàng</title>
 </head>
 <body>
 <form method="GET">
-    Chọn ngày sinh từ:
-    <input id="from" type="date" name="from" placeholder="yyyy/mm/dd" value=""/>
-    đến:
-    <input id="to" type="date" name="to" placeholder="yyyy/mm/dd" value=""/>
+    Chọn ngày sinh từ: <input id="from" type="date" name="from" placeholder="yyyy/mm/dd"
+                              value=""/>
+    đến: <input id="to" type="date" name="to" placeholder="yyyy/mm/dd"
+                value=""/>
     <input type="submit" id="submit" value="Lọc"/>
 </form>
 <?php
@@ -31,26 +20,29 @@ $customerList = [
     "1" => [
         "name" => "Mai Văn Hoàn",
         "day_of_birth" => "1983/08/20",
-        "address" => "Hà Nội"],
+        "address" => "Hà Nội",
+        "profile" => "images/img1.jpg"],
     "2" => [
         "name" => "Nguyễn Văn Nam",
         "day_of_birth" => "1983/08/21",
-        "address" => "Bắc Giang"],
+        "address" => "Bắc Giang",
+        "profile" => "images/img2.jpg"],
     "3" => [
         "name" => "Nguyễn Thái Hòa",
         "day_of_birth" => "1983/08/22",
-        "address" => "Nam Định"],
+        "address" => "Nam Định",
+        "profile" => "images/img3.jpg"],
     "4" => [
         "name" => "Trần Đăng Khoa",
         "day_of_birth" => "1983/08/17",
-        "address" => "Hà Tây"],
+        "address" => "Hà Tây",
+        "profile" => "images/img4.jpg"],
     "5" => [
         "name" => "Nguyễn Đình Thi",
         "day_of_birth" => "1983/08/19",
-        "address" => "Hà Nội"],
+        "address" => "Hà Nội",
+        "profile" => "images/img5.jpg"]
 ];
-?>
-<?php
 function searchByDate($customers, $fromDate, $toDate)
 {
     if (empty($fromDate) || empty($toDate)) {
@@ -67,16 +59,13 @@ function searchByDate($customers, $fromDate, $toDate)
     }
     return $filteredCustomers;
 }
-
-?>
-<?php
 $fromDate = null;
 $toDate = null;
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $fromDate = $_GET["from"];
-    $toDate = $_GET["to"];
-    $filteredCustomers = searchByDate($customerList, $fromDate, $toDate);
+    $fromDate = $_REQUEST["from"];
+    $toDate = $_REQUEST["to"];
 }
+$filteredCustomers = searchByDate($customerList, $fromDate, $toDate);
 ?>
 <table border="0">
     <caption><h2>Danh sách khách hàng</h2></caption>
@@ -85,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         <th>Tên</th>
         <th>Ngày sinh</th>
         <th>Địa chỉ</th>
+        <th>Ảnh</th>
     </tr>
     <?php foreach ($filteredCustomers as $index => $customer): ?>
         <tr>
@@ -92,10 +82,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <td><?php echo $customer['name']; ?></td>
             <td><?php echo $customer['day_of_birth']; ?></td>
             <td><?php echo $customer['address']; ?></td>
+            <td>
+                <div class="profile"><img src="<?php echo $customer['profile']; ?>"/></div>
+            </td>
         </tr>
     <?php endforeach; ?>
 </table>
-
-
 </body>
 </html>
