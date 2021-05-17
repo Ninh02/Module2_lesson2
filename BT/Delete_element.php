@@ -2,7 +2,7 @@
 function deleteElement($arr,$x){
     for($i=0;$i<count($arr);$i++){
         if($arr[$i]==$x){
-            array_splice($arr,$arr[$i],1);
+            array_splice($arr,$arr[$i-1],1);
         }
     }
     return $arr;
